@@ -1,0 +1,33 @@
+{
+  "name": "volto-patchnotes",
+  "version": "0.1.0",
+  "description": "Volto addon to show patchnotes from markdown file",
+  "main": "src/index.js",
+  "repository": "https://github.com/deodorhunter/volto-patchnotes.git",
+  "homepage": "https://github.com/deodorhunter/volto-patchnotes.git#readme",
+  "bugs": "https://github.com/deodorhunter/volto-patchnotes.git/issues",
+  "author": "deodorhunter",
+  "license": "MIT",
+  "keywords": [
+    "volto-addon",
+    "volto",
+    "plone",
+    "react"
+  ],
+  "scripts": {
+    "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon"
+  },
+  "dependencies": {
+    "@plone/scripts": "*"
+  },
+  "peerDependencies": {
+    "@plone/volto": ">=15.9.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.1",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@release-it/conventional-changelog": "^3.3.0",
+    "husky": "^7.0.4",
+    "release-it": "^14.11.8"
+  }
+}
