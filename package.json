@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@plone/scripts": "*",
-    "react-markdown": "^8.0.3"
+    "react-remark": "^2.1.0"
   },
   "peerDependencies": {
     "@plone/volto": ">=15.9.0"

@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { defineMessages, useIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import { getPatchNotes } from '../../actions/getPatchNotesActions';
-import {
-  Container,
-  Segment,
-  Checkbox,
-  Button,
-  Table,
-  Loader,
-  Form,
-  Input,
-  Message,
-} from 'semantic-ui-react';
-import { Pagination, Toolbar, Unauthorized } from '@plone/volto/components';
-import { Helmet, flattenToAppURL } from '@plone/volto/helpers';
+import { useRemark } from 'react-remark';
+import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
+import { fetchPatchNotes } from '../../helpers';
+import { Container, Dimmer, Loader } from 'semantic-ui-react';
+import { Toolbar } from '@plone/volto/components';
 import { useLocation } from 'react-router-dom';
 import { Portal } from 'react-portal';
 
@@ -23,31 +11,40 @@ import config from '@plone/volto/registry';
 
 const PatchNotesPanel = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
   const { url, isInternal, internalPath, authentication } = config?.settings?.[
     'volto-patchnotes'
   ]?.options;
   const [isClient, setIsClient] = useState(false);
-  const patchNotes = useSelector((state) => state.getPatchNotes);
-  const { error, hasError, results, loading } = patchNotes;
-  console.log(results);
+  const [markdownContent, setMarkdownSource] = useRemark();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (!isInternal && url) dispatch(getPatchNotes());
-    else {
-      // Load from module, how to do this?
-    }
     setIsClient(true);
+    fetchPatchNotes(isInternal, url, internalPath).then((response) => {
+      setError(response?.error);
+      console.log(response?.data);
+      setMarkdownSource(response?.data);
+      setLoading(false);
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(markdownContent);
   return (
     <>
       <Container
         id="page-customer-satisfaction"
         className="controlpanel-customer-satisfaction"
       >
-        <Helmet title={'Patch Notes'} />
-        {!error && !loading && <ReactMarkdown children={results ?? ''} />}
-        {!error && loading && 'Caricamento ...'}
+        <h1>Patch notes</h1>
+        <Dimmer active={loading} inverted>
+          <Loader indeterminate size="small">
+            <FormattedMessage id="loading" defaultMessage="Loading" />
+          </Loader>
+        </Dimmer>
+        {!loading && !error && markdownContent}
+        {!loading && error && 'Error loading patch notes'}
       </Container>
       {isClient && (
         <Portal node={document.getElementById('toolbar')}>
