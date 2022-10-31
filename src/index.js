@@ -1,8 +1,16 @@
-import bookSVG from '@plone/volto/icons/book.svg';
-import { fetchPatchNotes } from './helpers';
-import PatchNotesPanel from './components/manage/PatchNotesPanel';
+// import {
+//   fetchPatchNotes,
+//   useMarkdown,
+//   customRenderComponents,
+// } from './helpers';
+import { PatchNotesPanel, PatchNotesToolbar } from './components';
 
-export { fetchPatchNotes, PatchNotesPanel };
+// export {
+//   fetchPatchNotes,
+//   PatchNotesPanel,
+//   useMarkdown,
+//   customRenderComponents,
+// };
 
 export default function applyConfig(config) {
   config.settings.nonContentRoutes = [
@@ -18,15 +26,24 @@ export default function applyConfig(config) {
     },
   ];
 
+  config.settings.appExtras = [
+    ...config.settings.appExtras,
+    {
+      match: '',
+      component: PatchNotesToolbar,
+    },
+  ];
+
   config.settings['volto-patchnotes'] = {
     options: {
       url: '',
       isInternal: false,
       internalPath: null,
-      authentication: {},
+      authentication: {
+        headers: {},
+      },
     },
   };
-  config.settings.controlPanelsIcons['patch-notes'] = bookSVG;
 
   return config;
 }
