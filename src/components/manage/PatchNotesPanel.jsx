@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
-import { fetchPatchNotes, useMarkdown } from '@package/helpers';
+import { fetchPatchNotes, useMarkdown } from '../../helpers';
 import { Container, Loader } from 'semantic-ui-react';
 import { Toolbar } from '@plone/volto/components';
 import { useLocation } from 'react-router-dom';
