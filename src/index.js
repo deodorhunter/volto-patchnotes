@@ -1,16 +1,16 @@
-// import {
-//   fetchPatchNotes,
-//   useMarkdown,
-//   customRenderComponents,
-// } from './helpers';
+import {
+  fetchPatchNotes,
+  useMarkdown,
+  customRenderComponents,
+} from './helpers';
 import { PatchNotesPanel, PatchNotesToolbar } from './components';
 
-// export {
-//   fetchPatchNotes,
-//   PatchNotesPanel,
-//   useMarkdown,
-//   customRenderComponents,
-// };
+export {
+  fetchPatchNotes,
+  PatchNotesPanel,
+  useMarkdown,
+  customRenderComponents,
+};
 
 export default function applyConfig(config) {
   config.settings.nonContentRoutes = [
