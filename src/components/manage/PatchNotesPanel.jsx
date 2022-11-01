@@ -23,6 +23,7 @@ const messages = defineMessages({
 });
 
 const PatchNotesPanel = () => {
+  console.log('porco');
   const intl = useIntl();
   const location = useLocation();
   const { url, isInternal, internalPath, authentication } = config?.settings?.[
